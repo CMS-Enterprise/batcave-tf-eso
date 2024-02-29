@@ -2,7 +2,7 @@
 resource "helm_release" "external_secrets_operator" {
   namespace  = var.helm_namespace
   name       = var.helm_name
-  repository = "https://github.com/external-secrets/external-secrets"
+  repository = "https://external-secrets.io/v0.9.11/"
   chart      = "external-secrets"
   set {
     name  = "image.repository"
