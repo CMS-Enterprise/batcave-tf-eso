@@ -2,18 +2,8 @@
 resource "helm_release" "external_secrets_operator" {
   namespace  = var.helm_namespace
   name       = var.helm_name
-<<<<<<< HEAD
-  repository = "https://charts.external-secrets.io"
-  chart      = "external_secrets"
-=======
-<<<<<<< HEAD
-  repository = "https://charts.external-secrets.io"
-  chart      = "external_secrets"
-=======
   repository = "https://github.com/external-secrets/external-secrets"
   chart      = "external-secrets"
->>>>>>> e7a252d (adding eso files)
->>>>>>> 909182c (adding eso files)
   set {
     name  = "image.repository"
     value = var.imagerepo
