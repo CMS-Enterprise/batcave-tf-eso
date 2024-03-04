@@ -2,7 +2,8 @@
 resource "helm_release" "external_secrets_operator" {
   namespace  = var.helm_namespace
   name       = var.helm_name
-  repository = "https://external-secrets.io/v0.9.11/"
+  repository = "https://charts.external-secrets.io"
+  version    = "v0.9.13"
   chart      = "external-secrets"
   set {
     name  = "image.repository"
@@ -32,4 +33,18 @@ resource "helm_release" "external_secrets_operator" {
       value = set.value.key
     }
   }
+}
+
+  provider "helm" {
+  kubernetes {
+    host                   = var.cluster_endpoint
+    cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+    token                  = data.aws_eks_cluster_auth.cluster.token
+  }
+}
+
+provider "kubernetes" {
+  host                   = var.cluster_endpoint
+  cluster_ca_certificate = base64decode(var.cluster_certificate_authority_data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
 }
