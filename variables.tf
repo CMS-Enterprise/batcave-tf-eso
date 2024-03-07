@@ -55,6 +55,6 @@ variable "serviceAccountName" {
 variable "external_secrets_service_accounts" {
   type = list(string)
   default = [
-    "external-secrets:imagepull-es"
+    "external-secrets:ub-imagepull-es"
   ]
 }
