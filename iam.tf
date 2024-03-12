@@ -3,7 +3,8 @@ module "external_secrets_irsa" {
   role_name                     = "${var.cluster_name}-external-secrets"
   role_path                     = var.iam_path
   role_permissions_boundary_arn = var.permissions_boundary
-  app_name                      = "ESO"
+  app_name                      = "External_Secrets_Operator"
+  asm_secret_arns               = [data.aws_secretsmanager_secret.batcave-private-registry.arn]
   attach_secretsmanager_policy  = true
   oidc_providers = {
     main = {
@@ -11,4 +12,8 @@ module "external_secrets_irsa" {
       namespace_service_accounts = var.external_secrets_service_accounts
     }
   }
+}
+
+data "aws_secretsmanager_secret" "batcave-private-registry" {
+  name = "batcave/registry-artifactory.cloud.cms.gov"
 }
