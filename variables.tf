@@ -58,3 +58,11 @@ variable "external_secrets_service_accounts" {
     "external-secrets:ub-imagepull-es"
   ]
 }
+
+variable "aws_region" {
+  type = string
+}
+
+variable "aws_id" {
+  type = string
+}
