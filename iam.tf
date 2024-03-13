@@ -19,13 +19,13 @@ locals {
     ]
     secret_names = [
         "private-registry",
-        "batcave/argocd-config-batcave-dev",
-        "batcave/grafana-secret-batcave-dev",
-        "batcave/sso-secret-batcave-dev",
-        "batcave/istio-secret-batcave-dev",
-        "batcave/sonar-registry-credentials-batcave-dev",
-        "batcave/sonar-agent-api-key-batcave-dev",
-        "batcave/kiali-batcave-dev",
-        "batcave/gitlab-rails-secret-s3-batcave-dev"
+        "batcave/argocd-config",
+        "batcave/grafana-secret",
+        "batcave/sso-secret",
+        "batcave/istio-secret",
+        "batcave/sonar-registry-credentials",
+        "batcave/sonar-agent-api-key",
+        "batcave/kiali",
+        "batcave/gitlab-rails-secret-s3"
     ]
 }
