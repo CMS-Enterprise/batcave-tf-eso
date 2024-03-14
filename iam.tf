@@ -4,7 +4,7 @@ module "external_secrets_irsa" {
   role_path                     = var.iam_path
   role_permissions_boundary_arn = var.permissions_boundary
   app_name                      = "External_Secrets_Operator"
-  asm_secret_arns               = [data.aws_secretsmanager_secret.batcave-private-registry.arn]
+  asm_secret_arns               = local.secret_arns
   attach_secretsmanager_policy  = true
   oidc_providers = {
     main = {
@@ -14,6 +14,17 @@ module "external_secrets_irsa" {
   }
 }
 
-data "aws_secretsmanager_secret" "batcave-private-registry" {
-  name = "batcave/registry-artifactory.cloud.cms.gov"
+locals {
+    secret_arns = [ for name in local.secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}" ]
+    secret_names = [
+        "private-registry",
+        "batcave/argocd-config",
+        "batcave/grafana-secret",
+        "batcave/sso-secret",
+        "batcave/istio-secret",
+        "batcave/sonar-registry-credentials",
+        "batcave/sonar-agent-api-key",
+        "batcave/kiali",
+        "batcave/gitlab-rails-secret-s3",
+    ]
 }
