@@ -15,8 +15,7 @@ module "external_secrets_irsa" {
 }
 
 locals {
-    secret_arns = [ for name in local.secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}"
-    ]
+    secret_arns = [ for name in local.secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}" ]
     secret_names = [
         "private-registry",
         "batcave/argocd-config",
@@ -26,6 +25,6 @@ locals {
         "batcave/sonar-registry-credentials",
         "batcave/sonar-agent-api-key",
         "batcave/kiali",
-        "batcave/gitlab-rails-secret-s3"
+        "batcave/gitlab-rails-secret-s3",
     ]
 }
