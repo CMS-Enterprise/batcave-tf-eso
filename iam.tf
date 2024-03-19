@@ -1,5 +1,5 @@
 module "external_secrets_irsa" {
-  source                        = "git::git@github.com:CMS-Enterprise/batcave-tf-irsa.git//.?ref=1.1.0"
+  source                        = "git::git@github.com:CMS-Enterprise/batcave-tf-irsa.git//.?ref=1.1.1"
   role_name                     = "${var.cluster_name}-external-secrets"
   role_path                     = var.iam_path
   role_permissions_boundary_arn = var.permissions_boundary
@@ -15,7 +15,7 @@ module "external_secrets_irsa" {
 }
 
 locals {
-    secret_arns = [ for name in local.secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}" ]
+    secret_arns  = [ for name in local.secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}*" ]
     secret_names = [
         "private-registry",
         "batcave/argocd-config",
@@ -26,5 +26,13 @@ locals {
         "batcave/sonar-agent-api-key",
         "batcave/kiali",
         "batcave/gitlab-rails-secret-s3",
+        "batcave/alertmanager-secret",
+        "batcave/loki-write-keys",
+        "batcave/gitlab-secret",
+        "batcave/gitlab-rails-secret-backup"
     ]
+}
+
+output "secret_arns"{
+    value = local.secret_arns
 }
