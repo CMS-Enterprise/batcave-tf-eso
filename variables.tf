@@ -59,10 +59,19 @@ variable "external_secrets_service_accounts" {
   ]
 }
 
+variable "enable_gitlab_secret_arns" {
+  type    = bool
+  default = false
+}
+
 variable "aws_region" {
   type = string
 }
 
 variable "aws_id" {
+  type = string
+}
+
+variable "env" {
   type = string
 }

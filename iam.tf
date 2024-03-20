@@ -15,9 +15,10 @@ module "external_secrets_irsa" {
 }
 
 locals {
-    secret_arns  = [ for name in local.secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}*" ]
+    secret_arns  = [ for name in local.all_secret_names : "arn:aws:secretsmanager:${var.aws_region}:${var.aws_id}:secret:${name}*" ]
     secret_names = [
         "private-registry",
+        "batcave/registry-credentials",
         "batcave/argocd-config",
         "batcave/grafana-secret",
         "batcave/sso-secret",
@@ -25,12 +26,16 @@ locals {
         "batcave/sonar-registry-credentials",
         "batcave/sonar-agent-api-key",
         "batcave/kiali",
-        "batcave/gitlab-rails-secret-s3",
         "batcave/alertmanager-secret",
-        "batcave/loki-write-keys",
+        "batcave/loki-write-keys"
+    ]
+    gitlab_secret_names = [
+        "batcave/gitlab-rails-secret-s3",
         "batcave/gitlab-secret",
         "batcave/gitlab-rails-secret-backup"
     ]
+
+    all_secret_names = var.enable_gitlab_secret_arns == true ? concat(local.secret_names, local.gitlab_secret_names) : local.secret_names
 }
 
 output "secret_arns"{
