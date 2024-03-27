@@ -34,8 +34,15 @@ locals {
         "batcave/gitlab-secret",
         "batcave/gitlab-rails-secret-backup"
     ]
-
-    all_secret_names = var.enable_gitlab_secret_arns == true ? concat(local.secret_names, local.gitlab_secret_names) : local.secret_names
+    defectdojo_secret_names = [
+        "batcave/defectdojo",
+        "batcave/defectdojo-oauth-secret",
+        "batcave/defectdojo-postgresql-specific",
+        "batcave/defectdojo-rabbitmq-specific",
+        "batcave/defectdojo-redis-specific"
+    ]
+    include_gitlab_secrets     = var.enable_gitlab_secret_arns == true ? concat(local.secret_names, local.gitlab_secret_names) : local.secret_names
+    all_secret_names           = var.enable_defectdojo_secret_arns == true ? concat(local.include_gitlab_secrets, local.defectdojo_secret_names) : local.include_gitlab_secrets
 }
 
 output "secret_arns"{

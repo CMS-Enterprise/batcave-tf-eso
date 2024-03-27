@@ -64,6 +64,11 @@ variable "enable_gitlab_secret_arns" {
   default = false
 }
 
+variable "enable_defectdojo_secret_arns" {
+  type    = bool
+  default = false
+}
+
 variable "aws_region" {
   type = string
 }
