@@ -50,7 +50,7 @@ resource "helm_release" "external_secrets_operator" {
   #   name  = "certController.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
   #   value = module.external_secrets_irsa.iam_role_arn
   # }
-  
+
 
   dynamic "set" {
     for_each = var.tolerations
