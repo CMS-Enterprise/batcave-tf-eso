@@ -27,7 +27,8 @@ locals {
         "batcave/sonar-agent-api-key",
         "batcave/kiali",
         "batcave/alertmanager-secret",
-        "batcave/loki-write-keys"
+        "batcave/loki-write-keys",
+        "gitlab/access_token/flux_read_argo"
     ]
     gitlab_secret_names = [
         "batcave/gitlab-rails-secret-s3",
