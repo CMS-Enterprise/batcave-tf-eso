@@ -42,8 +42,13 @@ locals {
         "batcave/defectdojo-rabbitmq-specific",
         "batcave/defectdojo-redis-specific"
     ]
-    include_gitlab_secrets     = var.enable_gitlab_secret_arns == true ? concat(local.secret_names, local.gitlab_secret_names) : local.secret_names
-    all_secret_names           = var.enable_defectdojo_secret_arns == true ? concat(local.include_gitlab_secrets, local.defectdojo_secret_names) : local.include_gitlab_secrets
+    include_gitlab_secrets = var.enable_gitlab_secret_arns == true ? concat(local.secret_names, local.gitlab_secret_names) : local.secret_names
+
+    all_secret_names = (
+      var.enable_defectdojo_secret_arns == true ?
+        concat(local.include_gitlab_secrets, local.defectdojo_secret_names, var.additional_secret_names) :
+        concat(local.include_gitlab_secrets, var.additional_secret_names)
+    )
 }
 
 output "secret_arns"{
