@@ -60,13 +60,21 @@ variable "external_secrets_service_accounts" {
 }
 
 variable "enable_gitlab_secret_arns" {
-  type    = bool
-  default = false
+  description = "DEPRECATED: when set to true enables creation of IAM policies for GitLab secrets. Use additional_secret_names instead."
+  type        = bool
+  default     = false
 }
 
 variable "enable_defectdojo_secret_arns" {
-  type    = bool
-  default = false
+  description = "DEPRECATED: when set to true enables creation of IAM policies for DefectDojo secrets. Use additional_secret_names instead."
+  type        = bool
+  default     = false
+}
+
+variable "additional_secret_names" {
+  description = "A list of additional secret names to create IAM policies for."
+  type        = list(string)
+  default     = []
 }
 
 variable "aws_region" {
